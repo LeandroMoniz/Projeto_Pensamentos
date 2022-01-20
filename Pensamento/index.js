@@ -1,16 +1,26 @@
-const express = require('express')
-const exphbs = require('express-handlebars')
-const session = require('express-session')
-const fileStore = require('session-file-store')(session)
-const flash = require('express-flash')
+const express = require('express');
+const exphbs = require('express-handlebars');
+const session = require('express-session');
+const fileStore = require('session-file-store')(session);
+const flash = require('express-flash');
 
-const app = express()
+const app = express();
 
-const conn = require('./db/conn')
+const conn = require('./db/conn');
+
+// Models
+const Tought = require('./models/Tought');
+const User = require('./models/User');
+
+// Import Routes
+const toughtsRoutes = require('./routes/toughtsRoutes');
+const authRoutes = require('./routes/authRoutes');
+// Import Controller
+const ToughtsController = require('./controllers/ToughtsController');
 
 // Template engine
-app.engine('handlebars', exphbs.engine())
-app.set('view engine', 'handlebars')
+app.engine('handlebars', exphbs.engine());
+app.set('view engine', 'handlebars');
 
 // receber resposta do body
 app.use(
@@ -57,9 +67,15 @@ app.use((req, res, next) => {
     next()
 })
 
+// Routes
+app.use('/toughts', toughtsRoutes)
+app.use('/', authRoutes)
+
+app.get('/', ToughtsController.showToughts)
 
 
 conn
+    //.sync({ force: true }) 
     .sync()
     .then(() => {
         app.listen(3000)
