@@ -15,6 +15,7 @@ const User = require('./models/User');
 // Import Routes
 const toughtsRoutes = require('./routes/toughtsRoutes');
 const authRoutes = require('./routes/authRoutes');
+
 // Import Controller
 const ToughtsController = require('./controllers/ToughtsController');
 
@@ -25,11 +26,11 @@ app.set('view engine', 'handlebars');
 // receber resposta do body
 app.use(
     express.urlencoded({
-        extended: true
+        extended: true,
     })
-)
+);
 
-app.use(express.json())
+app.use(express.json());
 
 //session middleware
 app.use(
@@ -52,13 +53,14 @@ app.use(
 )
 
 // flash messages , messagens do sistema
-app.use(flash())
+app.use(flash());
 
 //public path
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 // set session to res 
 app.use((req, res, next) => {
+   
 
     if(req.session.userid) {
        res.locals.session = req.session 
