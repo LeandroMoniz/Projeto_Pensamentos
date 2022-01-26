@@ -60,20 +60,20 @@ app.use(express.static('public'));
 
 // set session to res 
 app.use((req, res, next) => {
-   
+    //console.log(req.session.userid);
 
     if(req.session.userid) {
-       res.locals.session = req.session 
+       res.locals.session = req.session; 
     }
 
-    next()
-})
+    next();
+});
 
 // Routes
-app.use('/toughts', toughtsRoutes)
-app.use('/', authRoutes)
+app.use('/toughts', toughtsRoutes);
+app.use('/', authRoutes);
 
-app.get('/', ToughtsController.showToughts)
+app.get('/', ToughtsController.showToughts);
 
 
 conn

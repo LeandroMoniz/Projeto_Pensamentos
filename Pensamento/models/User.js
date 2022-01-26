@@ -3,7 +3,7 @@ const sequelize = require('../db/conn')
 
 const db = require('../db/conn')
 
-const User = db.define('Use', {
+const User = db.define('User', {
 
     name: {
         type: DataTypes.STRING,
@@ -21,4 +21,4 @@ const User = db.define('Use', {
     },    
 })
 
-module.exports = User
+module.exports = User;
